@@ -30,6 +30,9 @@ services:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
       - DATABASE_URL=${DATABASE_URL}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - SENTRY_ENVIRONMENT=${SENTRY_ENVIRONMENT}
+      - SENTRY_TRACES_SAMPLE_RATE=${SENTRY_TRACES_SAMPLE_RATE:-1.0}
     depends_on:
       postgres:
         condition: service_healthy
@@ -40,6 +43,8 @@ services:
       dockerfile: ../Dockerfile.frontend
       args:
         VITE_API_BASE_URL: http://localhost:8000
+        VITE_SENTRY_DSN: ${VITE_SENTRY_DSN:-}
+        VITE_SENTRY_ENVIRONMENT: ${VITE_SENTRY_ENVIRONMENT:-development}
     ports:
       - "5173:5173"
     environment:
