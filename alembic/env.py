@@ -16,6 +16,7 @@ if config.config_file_name is not None:
 
 # Import ORM Base so Alembic can see all mapped tables for autogenerate
 from src.api.db_models import Base  # noqa: E402
+import src.api.db_models_whatsapp  # noqa: F401, E402
 
 target_metadata = Base.metadata
 

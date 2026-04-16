@@ -19,6 +19,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 
 from src.api.database import get_db
 from src.api.db_models import Base
+import src.api.db_models_whatsapp  # noqa: F401
 from src.api.main import app
 
 # ---------------------------------------------------------------------------

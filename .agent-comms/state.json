@@ -1,24 +1,27 @@
 {
-  "feature": "sentry-integration",
-  "phase": "done",
-  "brief_path": "docs/features/sentry-integration.md",
-  "review_status": "READY",
-  "last_agent": "reviewer",
+  "feature": "multi-agent-whatsapp",
+  "phase": "reviewing",
+  "branch": "feature/whatsapp-bot",
+  "brief_path": "docs/features/multi-agent-whatsapp.md",
+  "last_agent": "tester",
   "last_updated": "2026-04-16T00:00:00Z",
   "plan_review_status": "APPROVED",
   "source_files": [
-    "src/api/sentry_utils.py",
+    "src/api/db_models_whatsapp.py",
+    "src/api/services/agent_config.py",
+    "src/api/services/student_service.py",
+    "src/api/services/whatsapp_service.py",
+    "src/api/routers/whatsapp.py",
+    "alembic/versions/0003_add_agent_type_to_conversations.py",
     "src/api/main.py",
-    "frontend/src/main.tsx",
-    "frontend/package.json",
-    "pyproject.toml",
-    "Dockerfile.frontend",
     "docker-compose.yml",
     ".env.example"
   ],
   "test_files": [
-    "tests/unit/test_sentry.py",
-    "frontend/src/components/__tests__/SentryErrorBoundary.test.tsx"
+    "tests/unit/test_agent_config.py",
+    "tests/unit/test_student_service.py",
+    "tests/unit/test_whatsapp_service.py",
+    "tests/unit/test_whatsapp_router.py"
   ],
-  "notes": {}
+  "review_status": "PENDING"
 }
