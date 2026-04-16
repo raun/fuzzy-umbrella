@@ -1,0 +1,17 @@
+{
+  "name": "fuzzy-umbrella",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "pip install --no-cache-dir -e '.[dev]' 2>/dev/null || true",
+  "remoteEnv": {
+    "PYTHONPATH": "/workspace/src"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  }
+}

@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Docker
+.docker-volumes/
+
+# Agent communication bus (runtime state — recreated each session)
+.agent-comms/inbox/*.md
+.agent-comms/outbox/*.md
+.agent-comms/messages.jsonl
+.agent-comms/budget.json
