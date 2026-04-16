@@ -86,7 +86,22 @@ Then determine which phase the task is in:
 - **Implemented + tested** → start with reviewer
 - **Ambiguous** → ask the user one direct question to clarify
 
-### Step 2: Delegate
+### Step 2: Create a Feature Branch
+
+Before delegating to the implementer, create a git branch for the feature using the Bash tool:
+
+```bash
+git checkout -b feature/<kebab-case-feature-name>
+```
+
+- Branch name must match the `feature` field in `state.json` (e.g. `feature/fastapi-react-setup`)
+- If a branch for this feature already exists, check it out rather than creating a new one
+- If the working tree has uncommitted changes on `main`, stash them first with `git stash`
+- Record the branch name in `state.json` under a `"branch"` key after creating it
+
+Do this exactly once per feature — skip if the current branch is already the feature branch.
+
+### Step 3: Delegate
 
 Invoke agents using the Agent tool. Pass each agent the full context it needs — do not make it re-discover what you already know.
 
@@ -96,7 +111,7 @@ Always tell the agent:
 - What has already been done (by prior agents in this session)
 - What it should produce or check
 
-### Step 3: Chain Phases Automatically
+### Step 4: Chain Phases Automatically
 
 After each agent completes, output a brief status of what was produced, then immediately advance to the next phase without waiting for user input. Do not ask for approval between phases.
 
@@ -105,7 +120,7 @@ Only stop and ask the user if:
 - The plan-reviewer loop exceeds 3 revision cycles without reaching APPROVED
 - You need information that cannot be derived from the brief, codebase, or agent outboxes
 
-### Step 4: Handle Plan-Reviewer Feedback
+### Step 5: Handle Plan-Reviewer Feedback
 
 If the plan-reviewer outputs **NEEDS REVISION**:
 - Show the specific gaps to the user
@@ -113,7 +128,7 @@ If the plan-reviewer outputs **NEEDS REVISION**:
 - Re-run the plan-reviewer on the updated brief
 - Do not advance to the implementer until the plan-reviewer outputs **APPROVED**
 
-### Step 5: Handle Reviewer Feedback
+### Step 6: Handle Reviewer Feedback
 
 If the reviewer outputs **BLOCKED**:
 - Parse the specific issues
@@ -151,12 +166,13 @@ Waiting for: user approval / automatic continuation
 2. Planner writes `docs/features/<name>.md`
 3. Delegate to plan-reviewer with brief path
 4. If NEEDS REVISION → send findings back to planner → re-review; repeat until APPROVED
-5. Report brief is APPROVED → immediately delegate to implementer with brief path
-6. Implementer writes source files → report what was written
-7. Immediately delegate to tester with source file paths + brief path
-8. Tester writes and runs tests → report results
-9. Immediately delegate to reviewer
-10. If BLOCKED → fix loop; if READY → report done
+5. Create feature branch: `git checkout -b feature/<name>`; record branch in state.json
+6. Report brief is APPROVED → immediately delegate to implementer with brief path
+7. Implementer writes source files → report what was written
+8. Immediately delegate to tester with source file paths + brief path
+9. Tester writes and runs tests → report results
+10. Immediately delegate to reviewer
+11. If BLOCKED → fix loop; if READY → report done
 
 ### Bug fix
 1. Assess: no brief needed for small bugs → skip planner
